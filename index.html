@@ -12,6 +12,262 @@
 
 <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
 
+<nav id="navbar">
+    <header id="nav-header">
+        <h1 class="section-header">Design Patterns</h1>
+    </header>
+    <nav id="nav-list">
+        <a class="nav-link" href="#introduction">Introduction</a>
+        <a class="nav-link" href="#what_is_a_pattern?">What Is A Pattern?</a>
+        <a class="nav-link" href="#1_the_constructor_pattern">1 The Constructor Pattern</a>
+        <a class="nav-link" href="#1.1_object_creation">1.1 Object Creation</a>
+        <a class="nav-link" href="#1.2_basic_constructors">1.2 Basic Constructors</a>
+        <a class="nav-link" href="#1.3_constructors_with_prototypes">1.3 Constructors With Prototypes</a>
+    </nav>
+</nav>
 
+<main id="main-doc">
+    <section class="main-section" id="introduction">
+        <header class="section-header">
+            <h1 class="header-text">Introduction</h1>
+        </header>
+        <div class="section-text">
+            <p>One of the most important aspects of writing maintainable code is being able to notice the recurring themes in that code and optimize them. This is an area where knowledge of design patterns can prove invaluable.</p>
+            <p>In this technical document page, we will take a look at a number of popular JavaScript design patterns and explore why certain patterns may be more suitable for your projects than others. Remember that patterns can be applied not just to vanilla JavaScript (i.e standard JavaScript code), but also to abstracted libraries such as jQuery or dojo as well. Before we begin, let’s look at the exact definition of a "pattern" in software design.</p>
+        </div>
+    </section>
+    <hr>
+    <section class="main-section" id="what_is_a_pattern?">
+        <header class="section-header">
+            <h1 class="header-text">What is a pattern?</h1>
+        </header>
+        <div class="section-text">
+            <p>A pattern is a reusable solution that can be applied to commonly occurring problems in software design - in our case - in writing JavaScript web applications. Another way of looking at patterns are as templates for how we solve problems - ones which can be used in quite a few different situations.</p>
+            <p>So, why is it important to understand patterns and be familiar with them? Design patterns have three main benefits: </p>
+            <ol>
+                <li><b>Patterns are proven solutions:</b> They provide solid approaches to solving issues in software development using proven techniques that reflect the experience and insights the developers that helped define them bring to the pattern.</li>
+                <li><b>Patterns</b> can be easily reused: A pattern usually reflects an out of the box solution that can be adapted to suit our own needs. This feature makes them quite robust.</li>
+                <li><b>Patterns can be expressive:</b> When we look at a pattern there’s generally a set structure and vocabulary to the solution presented that can help express rather large solutions quite elegantly.</li>
+            </ol>
+            <p>Patterns are <b>not</b> an exact solution. It’s important that we remember the role of a pattern is merely to provide us with a solution scheme. Patterns don’t solve all design problems nor do they replace good software designers, however, they <b>do</b> support them. Next we’ll take a look at some of the other advantages patterns have to offer. </p>
+            <ul>
+                <li><b>Reusing patterns assists in preventing minor issues that can cause major problems in the application development process.</b> What this means is when code is built on proven patterns, we can afford to spend less time worrying about the structure of our code and more time focusing on the quality of our overall solution. This is because patterns can encourage us to code in a more structured and organized fashion avoiding the need to refactor it for cleanliness purposes in the future.</li>
+                <li><b>Patterns can provide generalized solutions which are documented in a fashion that doesn't require them to be tied to a specific problem.</b> This generalized approach means that regardless of the application (and in many cases the programming language) we are working with, design patterns can be applied to improve the structure of our code.</li>
+                <li><b>Certain patterns can actually decrease the overall file-size footprint of our code by avoiding repetition.</b> By encouraging developers to look more closely at their solutions for areas where instant reductions in repetition can be made, e.g. reducing the number of functions performing similar processes in favor of a single generalized function, the overall size of our codebase can be decreased. This is also known as making code more <i>DRY</i></li>
+                <li><b>Patterns add to a developer's vocabulary, which makes communication faster.</b></li>
+                <li><b>Patterns that are frequently used can be improved over time by harnessing the collective experiences other developers using those patterns contribute back to the design pattern community.</b> In some cases this leads to the creation of entirely new design patterns whilst in others it can lead to the provision of improved guidelines on how specific patterns can be best used. This can ensure that pattern-based solutions continue to become more robust than ad-hoc solutions may be.</li>
+            </ul>
+        </div>
+    </section>
+    <hr>
+    <section class="main-section" id="1_the_constructor_pattern">
+        <header class="section-header">
+            <h1 class="header-text">1 The Constructor Pattern</h1>
+        </header>
+        <div class="section-text">
+            <p>In classical object-oriented programming languages, a constructor is a special method used to initialize a newly created object once memory has been allocated for it. In JavaScript, as almost everything is an object, we're most often interested in object constructors.</p>
+            <p>Object constructors are used to create specific types of objects - both preparing the object for use and accepting arguments which a constructor can use to set the values of member properties and methods when the object is first created. </p>
+        </div>
+    </section>
+    <hr>
+    <section class="main-section" id="1.1_object_creation">
+        <header class="section-header">
+            <h1 class="header-text">1.1 Object Creation</h1>
+        </header>
+        <div class="section-text">
+            <p>The three common ways to create new objects in JavaScript are as follows:</p>
+            <code>
+                <pre>
+// Each of the following options will create a new empty object:
+ 
+var newObject = {};
+ 
+// or
+var newObject = Object.create( Object.prototype );
+ 
+// or
+var newObject = new Object();
+                </pre>
+            </code>
+            <p>Where the "Object" constructor in the final example creates an object wrapper for a specific value, or where no value is passed, it will create an empty object and return it.</p>
+            <p>There are then four ways in which keys and values can then be assigned to an object:</p>
+            <code>
+                <pre>
+// ECMAScript 3 compatible approaches
+ 
+// 1. Dot syntax
+ 
+// Set properties
+newObject.someKey = "Hello World";
+ 
+// Get properties
+var value = newObject.someKey;
+ 
+ 
+ 
+// 2. Square bracket syntax
+ 
+// Set properties
+newObject["someKey"] = "Hello World";
+ 
+// Get properties
+var value = newObject["someKey"];
+ 
+ 
+ 
+// ECMAScript 5 only compatible approaches
+// For more information see: http://kangax.github.com/es5-compat-table/
+ 
+// 3. Object.defineProperty
+ 
+// Set properties
+Object.defineProperty( newObject, "someKey", {
+    value: "for more control of the property's behavior",
+    writable: true,
+    enumerable: true,
+    configurable: true
+});
+ 
+// If the above feels a little difficult to read, a short-hand could
+// be written as follows:
+ 
+var defineProp = function ( obj, key, value ){
+  var config = {
+    value: value,
+    writable: true,
+    enumerable: true,
+    configurable: true
+  };
+  Object.defineProperty( obj, key, config );
+};
+ 
+// To use, we then create a new empty "person" object
+var person = Object.create( Object.prototype );
+ 
+// Populate the object with properties
+defineProp( person, "car", "Delorean" );
+defineProp( person, "dateOfBirth", "1981" );
+defineProp( person, "hasBeard", false );
+ 
+console.log(person);
+// Outputs: Object {car: "Delorean", dateOfBirth: "1981", hasBeard: false}
+ 
+ 
+// 4. Object.defineProperties
+ 
+// Set properties
+Object.defineProperties( newObject, {
+ 
+  "someKey": {
+    value: "Hello World",
+    writable: true
+  },
+ 
+  "anotherKey": {
+    value: "Foo bar",
+    writable: false
+  }
+ 
+});
+ 
+// Getting properties for 3. and 4. can be done using any of the
+// options in 1. and 2.
+                </pre>
+            </code>
+            <p>As we will see a little later in the book, these methods can even be used for inheritance, as follows:</p>
+            <code>
+                <pre>
+// Usage:
+ 
+// Create a race car driver that inherits from the person object
+var driver = Object.create( person );
+ 
+// Set some properties for the driver
+defineProp(driver, "topSpeed", "100mph");
+ 
+// Get an inherited property (1981)
+console.log( driver.dateOfBirth );
+ 
+// Get the property we set (100mph)
+console.log( driver.topSpeed );
+                </pre>
+            </code>
+        </div>
+    </section>
+    <hr>
+    <section class="main-section" id="1.2_basic_constructors">
+        <header class="section-header">
+            <h1 class="header-text">1.2 Basic Constructors</h1>
+        </header>
+        <div class="section-text">
+            <p>As we saw earlier, JavaScript doesn't support the concept of classes but it does support special constructor functions that work with objects. By simply prefixing a call to a constructor function with the keyword "new", we can tell JavaScript we would like the function to behave like a constructor and instantiate a new object with the members defined by that function.</p>
+            <p>Inside a constructor, the keyword <i>this</i> references the new object that's being created. Revisiting object creation, a basic constructor may look as follows:</p>
+            <code>
+                <pre>
+function Car( model, year, miles ) {
+ 
+    this.model = model;
+    this.year = year;
+    this.miles = miles;
+ 
+    this.toString = function () {
+    return this.model + " has done " + this.miles + " miles";
+  };
+}
+ 
+// Usage:
+ 
+// We can create new instances of the car
+var civic = new Car( "Honda Civic", 2009, 20000 );
+var mondeo = new Car( "Ford Mondeo", 2010, 5000 );
+ 
+// and then open our browser console to view the
+// output of the toString() method being called on
+// these objects
+console.log( civic.toString() );
+console.log( mondeo.toString() );
+                </pre>
+            </code>
+            <p>The above is a simple version of the constructor pattern but it does suffer from some problems. One is that it makes inheritance difficult and the other is that functions such as toString() are redefined for each of the new objects created using the Car constructor. This isn't very optimal as the function should ideally be shared between all of the instances of the Car type.</p>
+            <p>Thankfully as there are a number of both ES3 and ES5-compatible alternatives to constructing objects, it's trivial to work around this limitation.</p>
+        </div>
+    </section>
+    <hr>
+    <section class="main-section" id="1.3_constructors_with_prototypes">
+        <header class="section-header">
+            <h1 class="header-text">1.3 Constructors With Prototypes</h1>
+        </header>
+        <div class="section-text">
+            <p>Functions, like almost all objects in JavaScript, contain a "prototype" object. When we call a JavaScript constructor to create an object, all the properties of the constructor's prototype are then made available to the new object. In this fashion, multiple Car objects can be created which access the same prototype. We can thus extend the original example as follows: </p>
+            <code>
+                <pre>
+function Car( model, year, miles ) {
+ 
+  this.model = model;
+  this.year = year;
+  this.miles = miles;
+ 
+}
+ 
+ 
+// Note here that we are using Object.prototype.newMethod rather than
+// Object.prototype so as to avoid redefining the prototype object
+Car.prototype.toString = function () {
+  return this.model + " has done " + this.miles + " miles";
+};
+ 
+// Usage:
+ 
+var civic = new Car( "Honda Civic", 2009, 20000 );
+var mondeo = new Car( "Ford Mondeo", 2010, 5000 );
+ 
+console.log( civic.toString() );
+console.log( mondeo.toString() );
+                </pre>
+            </code>
+            <p>Above, a single instance of toString() will now be shared between all of the Car objects.</p>
+        </div>
+    </section>
+</main>
 
 </body>
